@@ -5,11 +5,11 @@ package main
 import (
 	"image"
     "image/color"
-    "maze"
     "bytes"
     "io"
     "log"
     "strings"
+    "github.com/itchyny/maze"
 )
 
 var white = color.RGBA{255,255,255,255} // white

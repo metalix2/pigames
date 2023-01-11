@@ -15,13 +15,13 @@ import (
     "math/rand"
     "math"
     "time"
-    "maze"
+    "github.com/itchyny/maze"
 
-    "periph.io/x/conn/i2c/i2creg"
-    "periph.io/x/devices/ssd1306"
-	"periph.io/x/host"
-    "periph.io/x/conn/gpio"
-	"periph.io/x/conn/gpio/gpioreg"
+    "periph.io/x/conn/v3/i2c/i2creg"
+    "periph.io/x/devices/v3/ssd1306"
+	"periph.io/x/host/v3"
+    "periph.io/x/conn/v3/gpio"
+	"periph.io/x/conn/v3/gpio/gpioreg"
 )
 
 
