@@ -60,18 +60,21 @@ func createMaze(w, h int) *maze.Maze {
     maze.Cursor = config.Start
 	return maze
 }
+
 type Difficulty struct {
     Width   int
     Height  int
     Level   int
+    Time    time.Duration
 
 }
-var difficulty = []Difficulty{{ Width:128, Height: 64, Level: 1}, { Width:128, Height: 128, Level: 2}, { Width: 384, Height: 64, Level: 3 }, { Width:256, Height: 128, Level: 4}}
+
+var difficulty = []Difficulty{{ Width:128, Height: 64, Level: 1, Time: 0.0}, { Width:128, Height: 128, Level: 2, Time: 0.0}, { Width: 384, Height: 64, Level: 3, Time: 0.0}, { Width:256, Height: 128, Level: 4, Time: 0.0}, { Width:256, Height: 192, Level: 5, Time: 0.0}, { Width: 128, Height: 64, Level: 0, Time: 0.0}}
 
 var level int
-var titleShown = false
-var introShown = false
-var showLevel = false
+var titleShown = true
+var introShown = true
+var showLevel = true
 var introFrames = 0
 var counter = 10
 var a_event = 0
@@ -101,10 +104,12 @@ func drawLevelText(w, h int) (*image.Paletted) {
             } else  {
                 d.DrawString(dialog[di][str])
             }
+            
         }
     }
     return img
 }
+
 func drawIntro(w, h int, src image.Image) (*image.Paletted) {
     r := src.Bounds()
     img := image.NewPaletted(image.Rect(0, 0, w, h), palette.Plan9)
@@ -119,7 +124,7 @@ func drawIntro(w, h int, src image.Image) (*image.Paletted) {
     if a_event == 3 {
         dialog = [][]string{{fmt.Sprintf("      Level %d", difficulty[level].Level)}}
     }
-    if a_event == 4 && level > 0 {
+    if a_event == 4 {
         introShown = true
     }
     if a_event > 0  {
@@ -175,6 +180,29 @@ func drawIntro(w, h int, src image.Image) (*image.Paletted) {
     return img
 }
 
+func drawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]int, next_coords map[string]int, dir int)(*image.Paletted, map[string]int) {
+    // log.Println("ending")
+    r1 := src.Bounds()
+    log.Println(r1)
+    r2 := src.Bounds()
+    img := image.NewPaletted(image.Rect(0, 0, w, h), palette.Plan9)
+
+    r1 = r1.Add(image.Point{prev_coords["x"], prev_coords["y"]})
+    r2 = r2.Add(image.Point{60, 30})
+
+
+    // Draw Avatar and it's Orientation
+    if dir > 0 {
+        draw.Draw(img, r1, flip(src), image.Point{1, 1}, draw.Src)
+        draw.Draw(img, r2, flip(src2), image.Point{1, 1}, draw.Src) 
+    } else {
+        draw.Draw(img, r1, src, image.Point{0, 0}, draw.Src)
+        draw.Draw(img, r2, src2, image.Point{0, 0}, draw.Src)
+    }
+
+    return img, next_coords
+}
+
 func drawCanvas(w, h int, src image.Image, prev_coords map[string]int, next_coords map[string]int, dir int, screenX int, screenY int) (*image.Paletted, map[string]int, int, int) {
     r := src.Bounds()
     img := image.NewPaletted(image.Rect(0, 0, w, h), palette.Plan9)
@@ -204,17 +232,36 @@ func drawCanvas(w, h int, src image.Image, prev_coords map[string]int, next_coor
             var vector [2]int
             vector[0] = (next_coords["x"] - prev_coords["x"])
             vector[1] = (next_coords["y"] - prev_coords["y"])
+
             if vector[0] > 0 {
-                screenX += 128
+                if screenX == 0 {
+                    screenX += 126
+                } else {
+                    screenX += 128
+                }
             }
             if vector[0] < 0 {
-                screenX -= 128
+                if screenX == 126 {
+                    screenX -= 126
+                } else {
+                    screenX -= 128
+                }
+                
             }
             if vector[1] > 0 {
-                screenY += 64
+                if screenY == 0 {
+                    screenY += 63
+                } else {
+                    screenY += 64
+                }
+                
             }
             if vector[1] < 0 {
-                screenY -= 64
+                if screenY == 63 {
+                    screenY -= 63
+                } else {
+                    screenY -= 64
+                }
             }
         } else {
             // Level Progression time Show New Level 
@@ -284,6 +331,27 @@ func main() {
         log.Fatal(err)
     }
 
+    matetopath := "images/mateto.gif"
+    matetoReader, err := image_path.Open(matetopath)
+	if err != nil {
+		log.Fatal(err)
+	}
+    matetoGif, err := gif.DecodeAll(matetoReader)
+    f.Close()
+    if err != nil {
+        log.Fatal(err)
+    }
+    heartpath := "images/heart.gif"
+    heartReader, err := image_path.Open(heartpath)
+	if err != nil {
+		log.Fatal(err)
+	}
+    heartGif, err := gif.DecodeAll(heartReader)
+    f.Close()
+    if err != nil {
+        log.Fatal(err)
+    }
+
     // Lookup a pin by its number:
 	p_r := gpioreg.ByName("GPIO23")
     p_l := gpioreg.ByName("GPIO27")
@@ -317,19 +385,47 @@ func main() {
     prev_coords := map[string]int{"x": 2, "y": 2}
     next_coords := map[string]int{"x": 2, "y": 2}
 
+    // Global params
     var dir = 1
     var fps = 10
-    level = 2
+    level = 5
     screenX := 0
     screenY := 0
     currentMaze = createMaze(int(math.Round(float64(difficulty[level].Width/14))), int(math.Round(float64(difficulty[level].Height/16))))
     ts := time.Now();
     p_counter := 0 // reset's when passes 5
-    a_counter := 0 
+    a_counter := 0
+    index := 0
     // Display the frames in a loop:
     for i := 1; ;  {
-        if showLevel {
-            c := time.After(time.Duration(10*fps) * time.Millisecond)
+        // fps currently 300ms per avatar frame so ~3FPS for avatar animation; screen refreshes every 100ms so 10FPS for each cycle. 
+        c := time.After(time.Duration(10*fps) * time.Millisecond)
+        if titleShown && introShown && difficulty[level].Level == 0 {
+            // end game
+            index = i % len(avatarGif.Image)
+            // movement
+            if p_r.Read() == gpio.Low {
+                dir = 1
+                next_coords["x"] += 2
+            } else if p_u.Read() == gpio.Low {
+                next_coords["y"] -= 2
+            }
+            if p_l.Read() == gpio.Low {
+                dir = 0
+                next_coords["x"] -= 2
+            } else if p_d.Read() == gpio.Low {
+                next_coords["y"] += 2
+            }
+            var img *image.Paletted
+            var coords map[string]int
+            img, coords = drawEnding(difficulty[level].Width, difficulty[level].Height, avatarGif.Image[index], matetoGif.Image[index],  heartGif.Image[index], prev_coords, next_coords, dir)
+            prev_coords["x"] = coords["x"]
+            prev_coords["y"] = coords["y"]
+            next_coords["x"] = coords["x"]
+            next_coords["y"] = coords["y"]
+            dev.Draw(img.Bounds(), img, image.Point{0, 0})
+            <-c
+        } else if showLevel {
             img := drawLevelText(128, 64)
             dev.Draw(img.Bounds(), img, image.Point{0, 0})
 
@@ -345,10 +441,9 @@ func main() {
             }
 
             <-c 
-        } else if titleShown && introShown {
-            index := i % len(avatarGif.Image)
-            // fps currently 300ms per avatar frame so ~3FPS for avatar animation; screen refreshes every 100ms so 10FPS for each cycle. 
-            c := time.After(time.Duration(10*fps) * time.Millisecond)
+        } else if titleShown && introShown && difficulty[level].Level != 0 {
+            index = i % len(avatarGif.Image)
+            
             if ts.Add(time.Duration(10 * avatarGif.Delay[index]) * time.Millisecond).Sub(time.Now()) < time.Duration(10 * 1) * time.Millisecond {
                 i++
                 ts = time.Now();
@@ -405,7 +500,7 @@ func main() {
             // We wait on title until button pressed
             if p_a.Read() == gpio.Low {
                 a_counter += 1
-                if a_counter < 2{ 
+                if a_counter < 2 { 
    
                     a_event += 1
                     introFrames = 0
@@ -417,7 +512,7 @@ func main() {
             if i > len(titleGif.Image) - 2 {
                 i = len(titleGif.Image) - 2
             }
-            c := time.After(time.Duration(10*fps) * time.Millisecond)
+            
             if ts.Add(time.Duration(10 * titleGif.Delay[i]) * time.Millisecond).Sub(time.Now()) < time.Duration(10 * 1) * time.Millisecond {
                 i++
                 ts = time.Now();
