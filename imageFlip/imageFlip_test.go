@@ -53,7 +53,7 @@ func TestImageToGrid(t *testing.T) {
     }
 }
 
-func TestImageFlip(t *testing.T) {
+func TestFlip(t *testing.T) {
 	
 
 	avatarpath := "../images/avatar.gif"
@@ -61,11 +61,11 @@ func TestImageFlip(t *testing.T) {
 	avatarGif, err := gif.DecodeAll(f)
 	f.Close()
 
-	resultImg := flip(avatarGif.Image[0])
+	resultImg := Flip(avatarGif.Image[0])
 
 	result := imageToGrid(resultImg) // the flip returns an image but it's easier to compare using grids.
 
     if !reflect.DeepEqual(result, flipOuput)  || err != nil {
-        t.Errorf(`flip(avatarGif.Image[0]) = %q, and not %q`, result,  flipOuput)
+        t.Errorf(`Flip(avatarGif.Image[0]) = %q, and not %q`, result,  flipOuput)
     }
 }

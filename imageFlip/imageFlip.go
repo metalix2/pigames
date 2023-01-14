@@ -27,7 +27,7 @@ func imageToGrid(img image.Image) [][]color.Color {
     return grid
 }
 
-func flip(img image.Image) image.Image {
+func Flip(img image.Image) image.Image {
     // create and return a grid of pixels
     var grid = imageToGrid(img)
     xlen, ylen := len(grid), len(grid[0])
