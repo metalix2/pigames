@@ -15,6 +15,8 @@ import (
     "math/rand"
     "math"
     "time"
+
+    "github.com/metalix2/PiGames/imageFlip"
     "github.com/itchyny/maze"
 
     "periph.io/x/conn/v3/i2c/i2creg"
