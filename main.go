@@ -16,7 +16,7 @@ import (
     "math"
     "time"
 
-    "github.com/metalix2/PiGames/imageFlip"
+    "github.com/metalix2/pigames/imageflip"
     "github.com/itchyny/maze"
 
     "periph.io/x/conn/v3/i2c/i2creg"
@@ -193,8 +193,8 @@ func drawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
 
     // Draw Avatar and it's Orientation
     if dir > 0 {
-        draw.Draw(img, r1, flip(src), image.Point{1, 1}, draw.Src)
-        draw.Draw(img, r2, flip(src2), image.Point{1, 1}, draw.Src) 
+        draw.Draw(img, r1, imageflip.Flip(src), image.Point{1, 1}, draw.Src)
+        draw.Draw(img, r2, imageflip.Flip(src2), image.Point{1, 1}, draw.Src) 
     } else {
         draw.Draw(img, r1, src, image.Point{0, 0}, draw.Src)
         draw.Draw(img, r2, src2, image.Point{0, 0}, draw.Src)
@@ -288,7 +288,7 @@ func drawCanvas(w, h int, src image.Image, prev_coords map[string]int, next_coor
 
     // Draw Avatar and it's Orientation
     if dir > 0 {
-        draw.Draw(img, r, flip(src), image.Point{1, 1}, draw.Src) 
+        draw.Draw(img, r, imageflip.Flip(src), image.Point{1, 1}, draw.Src) 
     } else {
         draw.Draw(img, r, src, image.Point{0, 0}, draw.Src)
     }
