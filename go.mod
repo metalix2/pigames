@@ -1,4 +1,4 @@
-module github.com/metalix2/PiGames
+module github.com/metalix2/pigames
 
 go 1.19
 
