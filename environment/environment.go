@@ -1,6 +1,6 @@
 
 
-package main
+package environment
 
 import (
 	"image"
@@ -35,7 +35,7 @@ func Rect(x1, y1, x2, y2 int, canvas *image.Paletted) {
     VLine(x2, y1, y2, canvas)
 }
 
-func drawMaze(currentMaze *maze.Maze, canvas *image.Paletted) {
+func DrawMaze(currentMaze *maze.Maze, canvas *image.Paletted) {
     var foo bytes.Buffer
 
     w := io.Writer(&foo)
@@ -76,7 +76,7 @@ func drawMaze(currentMaze *maze.Maze, canvas *image.Paletted) {
 
 
 // does it intersec with environment?
-func inteserction(img *image.Paletted, next_coords map[string]int, r image.Rectangle)  bool {
+func Inteserction(img *image.Paletted, next_coords map[string]int, r image.Rectangle)  bool {
 
     subRect := image.Rect(next_coords["x"], next_coords["y"], (r.Size().X  + next_coords["x"]) , (r.Size().Y + next_coords["y"]))
     gridSubImage := img.SubImage(subRect)
@@ -94,7 +94,7 @@ func inteserction(img *image.Paletted, next_coords map[string]int, r image.Recta
 }
 
 // is it still in the environment? when > width, height - tells to complete or render next section
-func inEnvironment(img *image.Paletted, next_coords map[string]int, r image.Rectangle)  bool {
+func InEnvironment(img *image.Paletted, next_coords map[string]int, r image.Rectangle)  bool {
     log.Println(img.Bounds().Max.X);
     log.Println(next_coords["x"]);
     if (next_coords["x"] >= img.Bounds().Max.X){

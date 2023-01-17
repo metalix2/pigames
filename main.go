@@ -17,6 +17,8 @@ import (
     "time"
 
     "github.com/metalix2/pigames/imageflip"
+    "github.com/metalix2/pigames/environment"
+
     "github.com/itchyny/maze"
 
     "periph.io/x/conn/v3/i2c/i2creg"
@@ -208,11 +210,11 @@ func drawCanvas(w, h int, src image.Image, prev_coords map[string]int, next_coor
     img := image.NewPaletted(image.Rect(0, 0, w, h), palette.Plan9)
 
     currentMaze.Generate()
-    drawMaze(currentMaze, img)
+    environment.DrawMaze(currentMaze, img)
     
     // bound detection
     if 0 > prev_coords["x"] + r.Size().X  {
-        if !inEnvironment(img, prev_coords, r) {
+        if !environment.InEnvironment(img, prev_coords, r) {
             level += 1
             prev_coords = map[string]int{"x": 2, "y": 2}
             next_coords = map[string]int{"x": 2, "y": 2}
@@ -228,7 +230,7 @@ func drawCanvas(w, h int, src image.Image, prev_coords map[string]int, next_coor
     prev_coords["y"] > r.Size().Y && screenY + 0  > prev_coords["y"] + r.Size().Y  ||
     prev_coords["y"] + r.Size().Y  >= 64 + screenY + r.Size().Y {
         log.Println(prev_coords["x"] + r.Size().X  >= 128 + screenX + r.Size().X)
-        if inEnvironment(img, prev_coords, r) {
+        if environment.InEnvironment(img, prev_coords, r) {
             var vector [2]int
             vector[0] = (next_coords["x"] - prev_coords["x"])
             vector[1] = (next_coords["y"] - prev_coords["y"])
@@ -281,7 +283,7 @@ func drawCanvas(w, h int, src image.Image, prev_coords map[string]int, next_coor
     r = r.Add(image.Point{prev_coords["x"], prev_coords["y"]})
 
     // check Avatar can't walk through walls
-    if inteserction(img, next_coords, r) {
+    if environment.Inteserction(img, next_coords, r) {
         next_coords["x"] = prev_coords["x"]
         next_coords["y"] = prev_coords["y"]
     }
