@@ -260,8 +260,9 @@ func main() {
                 i++
                 ts = time.Now();
             }
-            img, tShown, iFrames := scenarios.DrawIntro(128, 64, titleGif.Image[i], a_event, titleShown, difficulty[level].Level, introShown, introFrames)
+            img, tShown, iShown, iFrames := scenarios.DrawIntro(128, 64, titleGif.Image[i], a_event, titleShown, difficulty[level].Level, introShown, introFrames)
             titleShown = tShown
+            introShown = iShown
             introFrames = iFrames
             dev.Draw(img.Bounds(), img, image.Point{0, 0})
             <-c
