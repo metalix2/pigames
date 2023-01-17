@@ -63,6 +63,9 @@ func DrawMaze(currentMaze *maze.Maze, canvas *image.Paletted) {
                         canvas.Set(x*scaleX+j, dy, white)
                     }
                 }
+                if y + 1 < len(rows) {
+                    log(rows[y+1])
+                }
                 if y + 1 < len(rows) && string(rows[y+1][x]) == "#" {
                     for  j := 0; j < scaleY; j++ {
                         dy := y*scaleY+j
