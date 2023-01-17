@@ -37,7 +37,7 @@ func Rect(x1, y1, x2, y2 int, canvas *image.Paletted) {
 
 func DrawMaze(currentMaze *maze.Maze, canvas *image.Paletted) {
     var foo bytes.Buffer
-
+    log.Println(currentMaze);
     w := io.Writer(&foo)
     currentMaze.Print(w, maze.Default)
     // log.Println("")
