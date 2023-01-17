@@ -15,9 +15,7 @@ import (
 
     "github.com/metalix2/pigames/imageflip"
     "github.com/metalix2/pigames/environment"
-
     "github.com/itchyny/maze"
-
 )
 
 var currentMaze *maze.Maze
@@ -83,8 +81,8 @@ func DrawLevelText(w, h, level, introFrames int) (*image.Paletted) {
     return img
 }
 
-func DrawIntro(w, h int, src image.Image, a_event int, titleShown bool, level int, introShown bool, introFrames int) (*image.Paletted, bool, bool, int) {
-    r := src.Bounds()
+func DrawIntro(w, h int, src image.Image, a_event int, titleShown bool, introShown bool, introFrames int) (*image.Paletted, bool, bool, int) {
+	r := src.Bounds()
     img := image.NewPaletted(image.Rect(0, 0, w, h), palette.Plan9)
 
     if a_event == 1 {
@@ -95,7 +93,7 @@ func DrawIntro(w, h int, src image.Image, a_event int, titleShown bool, level in
         dialog = [][]string{{"Get Sabela back to", "her Mateto"}}
     }
     if a_event == 3 {
-		img = DrawLevelText(w, h, level+1, introFrames)
+		img = DrawLevelText(w, h, 1, introFrames)
 		return img, titleShown, introShown, introFrames
     }
     if a_event == 4 {
