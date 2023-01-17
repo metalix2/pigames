@@ -225,9 +225,10 @@ func main() {
             } 
             var img *image.Paletted
             var coords map[string]int
-            var x, y, iFrames int
+            var x, y, l, iFrames int
             var sLevel bool
-            img, coords, x, y, level, sLevel, iFrames = scenarios.DrawCanvas(difficulty[level].Width, difficulty[level].Height, avatarGif.Image[index], prev_coords, next_coords, dir, screenX, screenY, difficulty[level].Width, difficulty[level].Height, difficulty[level].Level, showLevel, introFrames)
+            img, coords, x, y, l, sLevel, iFrames = scenarios.DrawCanvas(difficulty[level].Width, difficulty[level].Height, avatarGif.Image[index], prev_coords, next_coords, dir, screenX, screenY, difficulty[level].Width, difficulty[level].Height, difficulty[level].Level, showLevel, introFrames)
+            level = l
             showLevel = sLevel
             introFrames = iFrames
             // img, next_coords, screenX, screenY, 
