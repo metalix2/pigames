@@ -16,7 +16,7 @@ import (
     "math"
     "time"
 
-    "pigames/imageflip"
+    "github.com/metalix2/pigames/imageflip"
     "github.com/itchyny/maze"
 
     "periph.io/x/conn/v3/i2c/i2creg"
