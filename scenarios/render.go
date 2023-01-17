@@ -93,7 +93,7 @@ func DrawIntro(w, h int, src image.Image, a_event int, titleShown bool, introSho
         dialog = [][]string{{"Get Sabela back to", "her Mateto"}}
     }
     if a_event == 3 {
-		var i
+		var i image.Paletted
 		i = DrawLevelText(w, h, 1, introFrames)
 		return i, titleShown, introShown, introFrames
     }
