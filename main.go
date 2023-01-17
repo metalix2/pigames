@@ -4,9 +4,7 @@ import (
 	"embed"
     "image"
     "image/gif"
-   
     "log"
-
     "time"
 
     "github.com/metalix2/pigames/scenarios"
@@ -131,7 +129,7 @@ func main() {
     // Global params
     var dir = 1
     var fps = 10
-    level = 5
+    level = 0
     screenX := 0
     screenY := 0
     ts := time.Now();
@@ -229,7 +227,9 @@ func main() {
             var coords map[string]int
             var x, y int
     
-            img, coords, x, y, level, showLevel, introFrames = scenarios.DrawCanvas(difficulty[level].Width, difficulty[level].Height, avatarGif.Image[index], prev_coords, next_coords, dir, screenX, screenY, difficulty[level].Width, difficulty[level].Height, difficulty[level].Level, showLevel, introFrames)
+            img, coords, x, y, level, sLevel, iFrames = scenarios.DrawCanvas(difficulty[level].Width, difficulty[level].Height, avatarGif.Image[index], prev_coords, next_coords, dir, screenX, screenY, difficulty[level].Width, difficulty[level].Height, difficulty[level].Level, showLevel, introFrames)
+            showLevel = sLevel
+            introFrames = iFrames
             // img, next_coords, screenX, screenY, 
             screenX = x
             screenY = y
@@ -260,7 +260,7 @@ func main() {
                 i++
                 ts = time.Now();
             }
-            img, tShown, iShown, iFrames := scenarios.DrawIntro(128, 64, titleGif.Image[i], a_event, titleShown, difficulty[level].Level, introShown, introFrames)
+            img, tShown, iShown, iFrames := scenarios.DrawIntro(128, 64, titleGif.Image[i], a_event, titleShown, introShown, introFrames)
             titleShown = tShown
             introShown = iShown
             introFrames = iFrames
