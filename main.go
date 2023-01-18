@@ -238,13 +238,13 @@ func main() {
             introFrames = iFrames
             screenX = x
             screenY = y
-            if showLevel {
-                continue
-            }
             prev_coords["x"] = coords["x"]
             prev_coords["y"] = coords["y"]
             next_coords["x"] = coords["x"]
             next_coords["y"] = coords["y"]
+            if showLevel {
+                continue
+            }
             dev.Draw(img.Bounds(), img, image.Point{screenX, screenY})
             <-c
         } else {
