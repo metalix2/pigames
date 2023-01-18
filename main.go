@@ -188,7 +188,7 @@ func main() {
             <-c 
         } else if titleShown && introShown && difficulty[level].Level != 0 {
             index = i % len(avatarGif.Image)
-            
+            log.Println(level)
             if ts.Add(time.Duration(10 * avatarGif.Delay[index]) * time.Millisecond).Sub(time.Now()) < time.Duration(10 * 1) * time.Millisecond {
                 i++
                 ts = time.Now();
