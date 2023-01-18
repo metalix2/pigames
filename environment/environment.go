@@ -18,6 +18,10 @@ func DrawMaze(currentMaze *maze.Maze, canvas *image.Paletted) {
 
     w := io.Writer(&foo)
     currentMaze.Print(w, maze.Default)
+
+    // Maze Clean up
+    log.Print(foo.String())
+
     rows := strings.Split(foo.String(), "\n")
     for y, line := range rows {
         for x, c := range line {
