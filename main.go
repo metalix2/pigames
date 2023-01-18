@@ -239,7 +239,7 @@ func main() {
             screenX = x
             screenY = y
             if showLevel {
-                <-c
+                continue
             }
             prev_coords["x"] = coords["x"]
             prev_coords["y"] = coords["y"]
