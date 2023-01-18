@@ -44,7 +44,7 @@ func DrawMaze(currentMaze *maze.Maze, canvas *image.Paletted) {
                 var hash byte = 35
                 log.Print(hash)
                 log.Print(reflect.TypeOf(hash))
-                // rows[u][v] = hash
+                rows[u] = "#" + rows[u][v+1:]
             }
             if v % 2 == 0 {
                 newRow = newRow + string(rows[u][v])
