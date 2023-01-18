@@ -3,7 +3,8 @@
 package environment
 
 import (
-	"image"
+	"log"
+    "image"
     "image/color"
     "bytes"
     "io"
