@@ -184,7 +184,7 @@ func DrawCanvas(img *image.Paletted, src image.Image, prev_coords map[string]int
             level += 1
             prev_coords = map[string]int{"x": 2, "y": 2}
             next_coords = map[string]int{"x": 2, "y": 2}
-            currentMaze = createMaze(int(math.Round(float64(levelWidth/14))), int(math.Round(float64(levelHeight/16))))
+            currentMaze = nil // redraw on next frame
             showLevel = true
             introFrames = 0
             screenX = 0
@@ -236,7 +236,7 @@ func DrawCanvas(img *image.Paletted, src image.Image, prev_coords map[string]int
             level += 1
             prev_coords = map[string]int{"x": 2, "y": 2}
             next_coords = map[string]int{"x": 2, "y": 2}
-            currentMaze = createMaze(int(math.Round(float64(levelWidth/14))), int(math.Round(float64(levelHeight/16))))
+            currentMaze = nil
             showLevel = true
             introFrames = 0
             screenX = 0
