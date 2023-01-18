@@ -30,7 +30,7 @@ func DrawMaze(currentMaze *maze.Maze, canvas *image.Paletted) {
     log.Print(foo.String())
     rows = remove(rows, 0)
     rows = remove(rows, len(rows)-1)
-    rows = remove(rows, len(rows))
+    rows = remove(rows, len(rows)-1)
     for u := 0; u < len(rows);  u++ {
         rows[u] = strings.TrimSpace(rows[u])
     }
