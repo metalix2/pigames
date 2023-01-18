@@ -12,27 +12,6 @@ import (
 )
 
 var white = color.RGBA{255,255,255,255} // white
-// HLine draws a horizontal line
-func HLine(x1, y, x2 int, canvas *image.Paletted) {
-    for ; x1 <= x2; x1++ {
-        canvas.Set(x1, y, white)
-    }
-}
-
-// VLine draws a veritcal line
-func VLine(x, y1, y2 int, canvas *image.Paletted) {
-    for ; y1 <= y2; y1++ {
-        canvas.Set(x, y1, white)
-    }
-}
-
-// Rect draws a rectangle utilizing HLine() and VLine()
-func Rect(x1, y1, x2, y2 int, canvas *image.Paletted) {
-    HLine(x1, y1, x2, canvas)
-    HLine(x1, y2, x2, canvas)
-    VLine(x1, y1, y2, canvas)
-    VLine(x2, y1, y2, canvas)
-}
 
 func DrawMaze(currentMaze *maze.Maze, canvas *image.Paletted) {
     var foo bytes.Buffer
