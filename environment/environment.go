@@ -28,7 +28,7 @@ func DrawMaze(currentMaze *maze.Maze, canvas *image.Paletted) {
     rows := strings.Split(foo.String(), "\n")
 
     // Maze Clean up
-    log.Print(foo.String())
+    // log.Print(foo.String())
     rows = remove(rows, 0)
     rows = remove(rows, len(rows)-1)
     rows = remove(rows, len(rows)-1)
@@ -39,9 +39,10 @@ func DrawMaze(currentMaze *maze.Maze, canvas *image.Paletted) {
         for v := 0; v < len(rows[u]);  v++ {
             if string(rows[u][v]) == "S" {
                 log.Print(rows[u][v])
-                reflect.TypeOf(rows[u][v])
+                log.Print(reflect.TypeOf(rows[u][v]))
                 var hash byte = 35
-                reflect.TypeOf(hash)
+                log.Print(hash)
+                log.Print(reflect.TypeOf(hash))
                 // rows[u][v] = hash
             }
             if v % 2 == 0 {
@@ -52,7 +53,7 @@ func DrawMaze(currentMaze *maze.Maze, canvas *image.Paletted) {
     }
     // print to check
     for u := 0; u < len(rows);  u++ {
-        log.Println(rows[u])
+        // log.Println(rows[u])
     }
     for y, line := range rows {
         for x, c := range line {
