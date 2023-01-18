@@ -20,10 +20,17 @@ func DrawMaze(currentMaze *maze.Maze, canvas *image.Paletted) {
     w := io.Writer(&foo)
     currentMaze.Print(w, maze.Default)
 
+    rows := strings.Split(foo.String(), "\n")
+
     // Maze Clean up
     log.Print(foo.String())
-
-    rows := strings.Split(foo.String(), "\n")
+    for u := 0; u <= len(rows);  u++ {
+        rows[u] = strings.TrimSpace(rows[u])
+    }    
+    // print to check
+    for u := 0; u <= len(rows);  u++ {
+        log.Println(rows[u])
+    }  
     for y, line := range rows {
         for x, c := range line {
             if string(c) == "#" {
