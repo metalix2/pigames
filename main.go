@@ -265,10 +265,11 @@ func main() {
                 ts = time.Now();
             }
             img := image.NewPaletted(image.Rect(0, 0, 128, 64), palette.Plan9)
-            tShown, iShown, iFrames := scenarios.DrawIntro(img, titleGif.Image[i], a_event, titleShown, introShown, introFrames)
+            tShown, iShown, iFrames, sLevel := scenarios.DrawIntro(img, titleGif.Image[i], a_event, titleShown, introShown, introFrames, showLevel)
             titleShown = tShown
             introShown = iShown
             introFrames = iFrames
+            showLevel = sLevel
             dev.Draw(img.Bounds(), img, image.Point{0, 0})
             <-c
         }

@@ -76,12 +76,14 @@ func DrawLevelText(img *image.Paletted, level, introFrames int) () {
     }
 }
 
-func DrawIntro(img *image.Paletted, src image.Image, a_event int, titleShown bool, introShown bool, introFrames int) (bool, bool, int) {
+func DrawIntro(img *image.Paletted, src image.Image, a_event int, titleShown bool, introShown bool, introFrames int, showLevel bool) (bool, bool, int, bool) {
 	r := src.Bounds()
 
 	if a_event == 3 {
-		DrawLevelText(img, 1, introFrames)
-		// return titleShown, introShown, introFrames
+		introShown = true
+		showLevel = true
+
+		return titleShown, introShown, introFrames, showLevel
     }
     if a_event == 1 {
         titleShown = true
@@ -89,9 +91,6 @@ func DrawIntro(img *image.Paletted, src image.Image, a_event int, titleShown boo
     }
     if a_event == 2 {
         dialog = [][]string{{"Get Sabela back to", "her Mateto"}}
-    }
-    if a_event == 4 {
-        introShown = true
     }
     if a_event > 0  {
         introFrames += 1
@@ -140,10 +139,11 @@ func DrawIntro(img *image.Paletted, src image.Image, a_event int, titleShown boo
         }
     }
     if a_event < 1  {
+		// pathfinder title render
         r = r.Add(image.Point{0, 0})
         draw.Draw(img, r, src, image.Point{0, 0}, draw.Src)
     }
-    return titleShown, introShown, introFrames
+    return titleShown, introShown, introFrames, showLevel
 }
 
 func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]int, next_coords map[string]int, dir int)(*image.Paletted, map[string]int) {
