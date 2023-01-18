@@ -81,7 +81,7 @@ func DrawIntro(img *image.Paletted, src image.Image, a_event int, titleShown boo
 
 	if a_event == 3 {
 		DrawLevelText(img, 1, introFrames)
-		return titleShown, introShown, introFrames
+		// return titleShown, introShown, introFrames
     }
     if a_event == 1 {
         titleShown = true
