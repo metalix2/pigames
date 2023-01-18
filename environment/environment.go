@@ -36,6 +36,7 @@ func DrawMaze(currentMaze *maze.Maze, canvas *image.Paletted) {
 
         rows[u] = strings.TrimSpace(rows[u])
         newRow := ""
+        log.Print(reflect.TypeOf(rows[u]))
         for v := 0; v < len(rows[u]);  v++ {
             if string(rows[u][v]) == "S" {
                 log.Print(rows[u][v])
