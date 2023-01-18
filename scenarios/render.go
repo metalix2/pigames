@@ -173,6 +173,8 @@ func DrawCanvas(img *image.Paletted, src image.Image, prev_coords map[string]int
     r := src.Bounds()
     
 	if currentMaze == nil {
+		log.Println(levelWidth)
+		log.Println(levelHeight)
 		currentMaze = createMaze(int(math.Round(float64(levelWidth/14))), int(math.Round(float64(levelHeight/16))))
 	}
 
