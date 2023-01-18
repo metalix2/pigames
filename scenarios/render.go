@@ -172,10 +172,6 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
 func DrawCanvas(img *image.Paletted, src image.Image, prev_coords map[string]int, next_coords map[string]int, dir int, screenX int, screenY int, levelWidth int, levelHeight int, level int, showLevel bool, introFrames int) (map[string]int, int, int, int, bool, int) {
     r := src.Bounds()
 	if currentMaze == nil {
-		log.Println(levelWidth)
-		log.Println(levelHeight)
-		log.Println(int(math.Round(float64(levelWidth/14))))
-		log.Println(int(math.Round(float64(levelHeight/16))))
 		currentMaze = createMaze(int(math.Round(float64(levelWidth/14))), int(math.Round(float64(levelHeight/16))))
 	}
 

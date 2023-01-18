@@ -28,23 +28,15 @@ func DrawMaze(currentMaze *maze.Maze, canvas *image.Paletted) {
     rows := strings.Split(foo.String(), "\n")
 
     // Maze Clean up
-    // log.Print(foo.String())
     rows = remove(rows, 0)
     rows = remove(rows, len(rows)-1)
     rows = remove(rows, len(rows)-1)
     for u := 0; u < len(rows);  u++ {
-
         rows[u] = strings.TrimSpace(rows[u])
         newRow := ""
-        log.Print(reflect.TypeOf(rows[u]))
         for v := 0; v < len(rows[u]);  v++ {
             if string(rows[u][v]) == "S" {
-                log.Print(rows[u][v])
-                log.Print(reflect.TypeOf(rows[u][v]))
-                var hash byte = 35
-                log.Print(hash)
-                log.Print(reflect.TypeOf(hash))
-                rows[u] = "#" + rows[u][v+1:]
+                rows[u] = "#" + rows[u][v+1:] // replace start with wall only works for lefthand starts
             }
             if v % 2 == 0 {
                 newRow = newRow + string(rows[u][v])
@@ -52,10 +44,7 @@ func DrawMaze(currentMaze *maze.Maze, canvas *image.Paletted) {
         }
         rows[u] = newRow
     }
-    // print to check
-    for u := 0; u < len(rows);  u++ {
-        // log.Println(rows[u])
-    }
+
     for y, line := range rows {
         for x, c := range line {
             if string(c) == "#" {
