@@ -3,8 +3,6 @@
 package environment
 
 import (
-    "reflect"
-	"log"
     "image"
     "image/color"
     "bytes"
