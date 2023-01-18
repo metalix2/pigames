@@ -183,86 +183,86 @@ func DrawCanvas(img *image.Paletted, src image.Image, prev_coords map[string]int
     environment.DrawMaze(currentMaze, img)
     
     // bound detection
-    // if 0 > prev_coords["x"] + r.Size().X  {
-    //     if !environment.InEnvironment(img, prev_coords, r) {
-    //         level += 1
-    //         prev_coords = map[string]int{"x": 2, "y": 2}
-    //         next_coords = map[string]int{"x": 2, "y": 2}
-    //         currentMaze = createMaze(int(math.Round(float64(levelWidth/14))), int(math.Round(float64(levelHeight/16))))
-    //         showLevel = true
-    //         introFrames = 0
-    //         screenX = 0
-    //         screenY = 0
-    //     }
-    // }
-    // if prev_coords["x"] > r.Size().X && screenX + 0 > prev_coords["x"] + r.Size().X || 
-    // prev_coords["x"] + r.Size().X  >= 128 + screenX + r.Size().X  || 
-    // prev_coords["y"] > r.Size().Y && screenY + 0  > prev_coords["y"] + r.Size().Y  ||
-    // prev_coords["y"] + r.Size().Y  >= 64 + screenY + r.Size().Y {
-    //     log.Println(prev_coords["x"] + r.Size().X  >= 128 + screenX + r.Size().X)
-    //     if environment.InEnvironment(img, prev_coords, r) {
-    //         var vector [2]int
-    //         vector[0] = (next_coords["x"] - prev_coords["x"])
-    //         vector[1] = (next_coords["y"] - prev_coords["y"])
+    if 0 > prev_coords["x"] + r.Size().X  {
+        if !environment.InEnvironment(img, prev_coords, r) {
+            level += 1
+            prev_coords = map[string]int{"x": 2, "y": 2}
+            next_coords = map[string]int{"x": 2, "y": 2}
+            currentMaze = createMaze(int(math.Round(float64(levelWidth/14))), int(math.Round(float64(levelHeight/16))))
+            showLevel = true
+            introFrames = 0
+            screenX = 0
+            screenY = 0
+        }
+    }
+    if prev_coords["x"] > r.Size().X && screenX + 0 > prev_coords["x"] + r.Size().X || 
+    prev_coords["x"] + r.Size().X  >= 128 + screenX + r.Size().X  || 
+    prev_coords["y"] > r.Size().Y && screenY + 0  > prev_coords["y"] + r.Size().Y  ||
+    prev_coords["y"] + r.Size().Y  >= 64 + screenY + r.Size().Y {
+        log.Println(prev_coords["x"] + r.Size().X  >= 128 + screenX + r.Size().X)
+        if environment.InEnvironment(img, prev_coords, r) {
+            var vector [2]int
+            vector[0] = (next_coords["x"] - prev_coords["x"])
+            vector[1] = (next_coords["y"] - prev_coords["y"])
 
-    //         if vector[0] > 0 {
-    //             if screenX == 0 {
-    //                 screenX += 126
-    //             } else {
-    //                 screenX += 128
-    //             }
-    //         }
-    //         if vector[0] < 0 {
-    //             if screenX == 126 {
-    //                 screenX -= 126
-    //             } else {
-    //                 screenX -= 128
-    //             }
+            if vector[0] > 0 {
+                if screenX == 0 {
+                    screenX += 126
+                } else {
+                    screenX += 128
+                }
+            }
+            if vector[0] < 0 {
+                if screenX == 126 {
+                    screenX -= 126
+                } else {
+                    screenX -= 128
+                }
                 
-    //         }
-    //         if vector[1] > 0 {
-    //             if screenY == 0 {
-    //                 screenY += 63
-    //             } else {
-    //                 screenY += 64
-    //             }
+            }
+            if vector[1] > 0 {
+                if screenY == 0 {
+                    screenY += 63
+                } else {
+                    screenY += 64
+                }
                 
-    //         }
-    //         if vector[1] < 0 {
-    //             if screenY == 63 {
-    //                 screenY -= 63
-    //             } else {
-    //                 screenY -= 64
-    //             }
-    //         }
-    //     } else {
-    //         // Level Progression time Show New Level 
-    //         level += 1
-    //         prev_coords = map[string]int{"x": 2, "y": 2}
-    //         next_coords = map[string]int{"x": 2, "y": 2}
-    //         currentMaze = createMaze(int(math.Round(float64(levelWidth/14))), int(math.Round(float64(levelHeight/16))))
-    //         showLevel = true
-    //         introFrames = 0
-    //         screenX = 0
-    //         screenY = 0
-    //     }
-    // }
+            }
+            if vector[1] < 0 {
+                if screenY == 63 {
+                    screenY -= 63
+                } else {
+                    screenY -= 64
+                }
+            }
+        } else {
+            // Level Progression time Show New Level 
+            level += 1
+            prev_coords = map[string]int{"x": 2, "y": 2}
+            next_coords = map[string]int{"x": 2, "y": 2}
+            currentMaze = createMaze(int(math.Round(float64(levelWidth/14))), int(math.Round(float64(levelHeight/16))))
+            showLevel = true
+            introFrames = 0
+            screenX = 0
+            screenY = 0
+        }
+    }
 
     // Position Avatar
-    // r = r.Add(image.Point{prev_coords["x"], prev_coords["y"]})
+    r = r.Add(image.Point{prev_coords["x"], prev_coords["y"]})
 
     // check Avatar can't walk through walls
-    // if environment.Inteserction(img, next_coords, r) {
-    //     next_coords["x"] = prev_coords["x"]
-    //     next_coords["y"] = prev_coords["y"]
-    // }
+    if environment.Inteserction(img, next_coords, r) {
+        next_coords["x"] = prev_coords["x"]
+        next_coords["y"] = prev_coords["y"]
+    }
 
     // Draw Avatar and it's Orientation
-    // if dir > 0 {
-    //     draw.Draw(img, r, imageflip.Flip(src), image.Point{1, 1}, draw.Src) 
-    // } else {
-    //     draw.Draw(img, r, src, image.Point{0, 0}, draw.Src)
-    // }
+    if dir > 0 {
+        draw.Draw(img, r, imageflip.Flip(src), image.Point{1, 1}, draw.Src) 
+    } else {
+        draw.Draw(img, r, src, image.Point{0, 0}, draw.Src)
+    }
 
     return next_coords, screenX, screenY, level, showLevel, introFrames
 }

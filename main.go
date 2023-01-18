@@ -233,7 +233,7 @@ func main() {
             var x, y, l, iFrames int
             var sLevel bool
 
-            coords, x, y, l, sLevel, iFrames = scenarios.DrawCanvas(img, avatarGif.Image[index], prev_coords, next_coords, dir, screenX, screenY, difficulty[level].Width, difficulty[level].Height, difficulty[level].Level, showLevel, introFrames)
+            coords, x, y, l, sLevel, iFrames = scenarios.DrawCanvas(img, avatarGif.Image[index], prev_coords, next_coords, dir, screenX, screenY, difficulty[level].Width, difficulty[level].Height, level, showLevel, introFrames)
             level = l
             showLevel = sLevel
             introFrames = iFrames
