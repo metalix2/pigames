@@ -7,7 +7,6 @@ import (
     "image/color"
     "bytes"
     "io"
-    "log"
     "strings"
     "github.com/itchyny/maze"
 )
@@ -59,9 +58,6 @@ func DrawMaze(currentMaze *maze.Maze, canvas *image.Paletted) {
                         canvas.Set(x*scaleX+j, dy, white)
                     }
                 }
-                if y + 1 < len(rows) {
-                    log.Println(rows[y+1])
-                }
                 if y + 1 < len(rows) && len(rows[y+1]) > 0 && string(rows[y+1][x]) == "#" {
                     for  j := 0; j < scaleY; j++ {
                         dy := y*scaleY+j
@@ -95,8 +91,6 @@ func Inteserction(img *image.Paletted, next_coords map[string]int, r image.Recta
 
 // is it still in the environment? when > width, height - tells to complete or render next section
 func InEnvironment(img *image.Paletted, next_coords map[string]int, r image.Rectangle)  bool {
-    log.Println(img.Bounds().Max.X);
-    log.Println(next_coords["x"]);
     if (next_coords["x"] >= img.Bounds().Max.X){
         return false
     }
