@@ -238,7 +238,7 @@ func main() {
             showLevel = sLevel
             introFrames = iFrames
             screenX = x
-            screenY = y 
+            screenY = y
             prev_coords["x"] = coords["x"]
             prev_coords["y"] = coords["y"]
             next_coords["x"] = coords["x"]

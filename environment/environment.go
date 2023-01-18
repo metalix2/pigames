@@ -40,11 +40,7 @@ func DrawMaze(currentMaze *maze.Maze, canvas *image.Paletted) {
     
     w := io.Writer(&foo)
     currentMaze.Print(w, maze.Default)
-    // log.Println("")
-    // log.Println(foo.String())
-    // log.Println("")
     rows := strings.Split(foo.String(), "\n")
-    log.Println(rows);
     for y, line := range rows {
         for x, c := range line {
             if string(c) == "#" {
