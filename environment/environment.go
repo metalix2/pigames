@@ -14,6 +14,10 @@ import (
 
 var white = color.RGBA{255,255,255,255} // white
 
+func remove(slice []string, s int) []string {
+    return append(slice[:s], slice[s+1:]...)
+}
+
 func DrawMaze(currentMaze *maze.Maze, canvas *image.Paletted) {
     var foo bytes.Buffer
 
@@ -24,13 +28,16 @@ func DrawMaze(currentMaze *maze.Maze, canvas *image.Paletted) {
 
     // Maze Clean up
     log.Print(foo.String())
+    rows = remove(rows, 0)
+    rows = remove(rows, len(rows)-1)
+    rows = remove(rows, len(rows))
     for u := 0; u < len(rows);  u++ {
         rows[u] = strings.TrimSpace(rows[u])
-    }    
+    }
     // print to check
     for u := 0; u < len(rows);  u++ {
         log.Println(rows[u])
-    }  
+    }
     for y, line := range rows {
         for x, c := range line {
             if string(c) == "#" {
