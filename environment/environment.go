@@ -15,7 +15,7 @@ var white = color.RGBA{255,255,255,255} // white
 
 func DrawMaze(currentMaze *maze.Maze, canvas *image.Paletted) {
     var foo bytes.Buffer
-    
+
     w := io.Writer(&foo)
     currentMaze.Print(w, maze.Default)
     rows := strings.Split(foo.String(), "\n")
@@ -37,7 +37,7 @@ func DrawMaze(currentMaze *maze.Maze, canvas *image.Paletted) {
                         canvas.Set(x*scaleX+j, dy, white)
                     }
                 }
-                if y + 1 < len(rows) && len(rows[y+1]) > 0 && string(rows[y+1][x]) == "#" {
+                if y + 1 < len(rows) && string(rows[y+1][x]) == "#" {
                     for  j := 0; j < scaleY; j++ {
                         dy := y*scaleY+j
                         canvas.Set(x*scaleX, dy, white)
