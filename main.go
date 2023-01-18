@@ -227,16 +227,18 @@ func main() {
             } else if p_d.Read() == gpio.Low {
                 next_coords["y"] += 2
             } 
-            var img *image.Paletted
+            img := image.NewPaletted(image.Rect(0, 0, difficulty[level].Width, difficulty[level].Height), palette.Plan9)
+
             var coords map[string]int
             var x, y, l, iFrames int
             var sLevel bool
-            coords, x, y, l, sLevel, iFrames = scenarios.DrawCanvas(difficulty[level].Width, difficulty[level].Height, avatarGif.Image[index], prev_coords, next_coords, dir, screenX, screenY, difficulty[level].Width, difficulty[level].Height, difficulty[level].Level, showLevel, introFrames)
+
+            coords, x, y, l, sLevel, iFrames = scenarios.DrawCanvas(img, avatarGif.Image[index], prev_coords, next_coords, dir, screenX, screenY, difficulty[level].Width, difficulty[level].Height, difficulty[level].Level, showLevel, introFrames)
             level = l
             showLevel = sLevel
             introFrames = iFrames
             screenX = x
-            screenY = y
+            screenY = y 
             prev_coords["x"] = coords["x"]
             prev_coords["y"] = coords["y"]
             next_coords["x"] = coords["x"]
