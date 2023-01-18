@@ -4,6 +4,8 @@ import (
 	"embed"
     "image"
     "image/gif"
+    "image/color/palette"
+
     "log"
     "time"
 
@@ -167,7 +169,9 @@ func main() {
             <-c
         } else if showLevel {
             introFrames += 1
-            img := scenarios.DrawLevelText(128, 64, difficulty[level].Level, introFrames)
+            img := image.NewPaletted(image.Rect(0, 0, 128, 64), palette.Plan9)
+            scenarios.DrawLevelText(img, difficulty[level].Level, introFrames)
+
             dev.Draw(img.Bounds(), img, image.Point{0, 0})
 
             if p_a.Read() == gpio.Low {
@@ -227,11 +231,10 @@ func main() {
             var coords map[string]int
             var x, y, l, iFrames int
             var sLevel bool
-            img, coords, x, y, l, sLevel, iFrames = scenarios.DrawCanvas(difficulty[level].Width, difficulty[level].Height, avatarGif.Image[index], prev_coords, next_coords, dir, screenX, screenY, difficulty[level].Width, difficulty[level].Height, difficulty[level].Level, showLevel, introFrames)
+            coords, x, y, l, sLevel, iFrames = scenarios.DrawCanvas(difficulty[level].Width, difficulty[level].Height, avatarGif.Image[index], prev_coords, next_coords, dir, screenX, screenY, difficulty[level].Width, difficulty[level].Height, difficulty[level].Level, showLevel, introFrames)
             level = l
             showLevel = sLevel
             introFrames = iFrames
-            // img, next_coords, screenX, screenY, 
             screenX = x
             screenY = y
             prev_coords["x"] = coords["x"]
@@ -261,7 +264,8 @@ func main() {
                 i++
                 ts = time.Now();
             }
-            img, tShown, iShown, iFrames := scenarios.DrawIntro(128, 64, titleGif.Image[i], a_event, titleShown, introShown, introFrames)
+            img := image.NewPaletted(image.Rect(0, 0, 128, 64), palette.Plan9)
+            tShown, iShown, iFrames := scenarios.DrawIntro(img, titleGif.Image[i], a_event, titleShown, introShown, introFrames)
             titleShown = tShown
             introShown = iShown
             introFrames = iFrames

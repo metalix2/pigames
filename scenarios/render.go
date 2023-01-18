@@ -51,12 +51,9 @@ func createMaze(w, h int) *maze.Maze {
 	return maze
 }
 
-func DrawLevelText(w, h, level, introFrames int) (*image.Paletted) {
+func DrawLevelText(img *image.Paletted, level, introFrames int) () {
     
-    img := image.NewPaletted(image.Rect(0, 0, w, h), palette.Plan9)
-
     dialog := [][]string{{fmt.Sprintf("      Level %d", level)}}
-    
 
     for di:=0; di < len(dialog); di++ {  
         for str:=0; str < len(dialog[di]); str++ {
@@ -74,28 +71,24 @@ func DrawLevelText(w, h, level, introFrames int) (*image.Paletted) {
                 d.DrawString(dialog[di][str][:introFrames])
             } else  {
                 d.DrawString(dialog[di][str])
-            }
-            
+            } 
         }
     }
-    return img
 }
 
-func DrawIntro(w, h int, src image.Image, a_event int, titleShown bool, introShown bool, introFrames int) (*image.Paletted, bool, bool, int) {
+func DrawIntro(img *image.Paletted, src image.Image, a_event int, titleShown bool, introShown bool, introFrames int) (bool, bool, int) {
 	r := src.Bounds()
-    img := image.NewPaletted(image.Rect(0, 0, w, h), palette.Plan9)
 
+	if a_event == 3 {
+		DrawLevelText(img, 1, introFrames)
+		return titleShown, introShown, introFrames
+    }
     if a_event == 1 {
         titleShown = true
         dialog = [][]string{{"Welcome to", "Pathfinder"}, {"Help Sabela escape", "the maze"}}
     }
     if a_event == 2 {
         dialog = [][]string{{"Get Sabela back to", "her Mateto"}}
-    }
-    if a_event == 3 {
-		var i *image.Paletted
-		i = DrawLevelText(w, h, 1, introFrames)
-		return i, titleShown, introShown, introFrames
     }
     if a_event == 4 {
         introShown = true
@@ -150,7 +143,7 @@ func DrawIntro(w, h int, src image.Image, a_event int, titleShown bool, introSho
         r = r.Add(image.Point{0, 0})
         draw.Draw(img, r, src, image.Point{0, 0}, draw.Src)
     }
-    return img, titleShown, introShown, introFrames
+    return titleShown, introShown, introFrames
 }
 
 func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]int, next_coords map[string]int, dir int)(*image.Paletted, map[string]int) {
@@ -176,7 +169,7 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
     return img, next_coords
 }
 
-func DrawCanvas(w, h int, src image.Image, prev_coords map[string]int, next_coords map[string]int, dir int, screenX int, screenY int, levelWidth int, levelHeight int, level int, showLevel bool, introFrames int) (*image.Paletted, map[string]int, int, int, int, bool, int) {
+func DrawCanvas(w, h int, src image.Image, prev_coords map[string]int, next_coords map[string]int, dir int, screenX int, screenY int, levelWidth int, levelHeight int, level int, showLevel bool, introFrames int) (map[string]int, int, int, int, bool, int) {
     r := src.Bounds()
     img := image.NewPaletted(image.Rect(0, 0, w, h), palette.Plan9)
 	if currentMaze == nil {
@@ -269,5 +262,5 @@ func DrawCanvas(w, h int, src image.Image, prev_coords map[string]int, next_coor
         draw.Draw(img, r, src, image.Point{0, 0}, draw.Src)
     }
 
-    return img, next_coords, screenX, screenY, level, showLevel, introFrames
+    return next_coords, screenX, screenY, level, showLevel, introFrames
 }
