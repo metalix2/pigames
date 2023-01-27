@@ -164,11 +164,14 @@ func main() {
             }
             
             if i > len(heartGif.Image) - 2 {
-                i = len(heartGif.Image) - 2
+                i = 0
+            }
+            if ts.Add(time.Duration(10 * heartGif.Delay[i]) * time.Millisecond).Sub(time.Now()) < time.Duration(10 * 1) * time.Millisecond {
+                i++
+                ts = time.Now();
             }
             if p_a.Read() == gpio.Low {
                 a_counter += 1
-                i++
             }
             var img *image.Paletted
             var coords map[string]int
