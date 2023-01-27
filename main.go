@@ -164,7 +164,7 @@ func main() {
             }
             
             if i > len(heartGif.Image) - 2 {
-                i = 0
+                i = 1
             }
             if ts.Add(time.Duration(20 * heartGif.Delay[i]) * time.Millisecond).Sub(time.Now()) < time.Duration(10 * 1) * time.Millisecond {
                 i++
