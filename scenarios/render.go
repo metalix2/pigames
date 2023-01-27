@@ -184,7 +184,7 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
         if (a_event > 0 || showEnding) && (r1.Max.X + 1 == r2.Min.X || r2.Max.X == r1.Min.X - 1) {
             // draw hearts
             showEnding = true
-            r3 = r3.Add(image.Point{50, 15})
+            r3 = r3.Add(image.Point{54, 16})
             draw.Draw(img, r3, src3, image.Point{0, 0}, draw.Src)
         }
     }

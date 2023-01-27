@@ -166,7 +166,7 @@ func main() {
             if i > len(heartGif.Image) - 2 {
                 i = 0
             }
-            if ts.Add(time.Duration(10 * heartGif.Delay[i]) * time.Millisecond).Sub(time.Now()) < time.Duration(10 * 1) * time.Millisecond {
+            if ts.Add(time.Duration(10 * avatarGif.Delay[i]) * time.Millisecond).Sub(time.Now()) < time.Duration(10 * 1) * time.Millisecond {
                 i++
                 ts = time.Now();
             }
