@@ -161,12 +161,16 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
     } else {
         draw.Draw(img, r1, src, image.Point{0, 0}, draw.Src)
     }
-    if i % 4 == 0 {
+    
+    if counter >= 0 && counter < 5 {
         draw.Draw(img, r2, imageflip.Flip(src2), image.Point{1, 1}, draw.Src)
+        counter -= 1
+    } else if counter < 0 {
+        counter += 10
     } else {
         draw.Draw(img, r2, src2, image.Point{0, 0}, draw.Src)
+        counter -= 1
     }
-
     return img, next_coords
 }
 
