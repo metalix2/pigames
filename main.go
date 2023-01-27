@@ -36,6 +36,7 @@ var level int
 var titleShown = false
 var introShown = false
 var showLevel = false
+var showEnding = false
 var introFrames = 0
 
 var a_event = 0
@@ -137,6 +138,7 @@ func main() {
     ts := time.Now();
     p_counter := 0 // reset's when passes 5
     a_counter := 0
+    ending 
     index := 0
     // Display the frames in a loop:
     for i := 1; ;  {
@@ -161,16 +163,22 @@ func main() {
             } else if p_d.Read() == gpio.Low {
                 next_coords["y"] += 2
             }
+            
+            if i > len(heartGif.Image) - 2 {
+                i = len(heartGif.Image) - 2
+            }
             if p_a.Read() == gpio.Low {
-                a_counter += 1            
+                a_counter += 1
+                i++
             }
             var img *image.Paletted
             var coords map[string]int
-            img, coords = scenarios.DrawEnding(difficulty[level].Width, difficulty[level].Height, avatarGif.Image[index], matetoGif.Image[index],  heartGif.Image[index], prev_coords, next_coords, dir, i, a_counter)
+            img, coords, sE = scenarios.DrawEnding(difficulty[level].Width, difficulty[level].Height, avatarGif.Image[index], matetoGif.Image[index],  heartGif.Image[i], prev_coords, next_coords, dir, i, a_counter, showEnding)
             prev_coords["x"] = coords["x"]
             prev_coords["y"] = coords["y"]
             next_coords["x"] = coords["x"]
             next_coords["y"] = coords["y"]
+            showEnding = sE
             dev.Draw(img.Bounds(), img, image.Point{0, 0})
             <-c
         } else if showLevel {

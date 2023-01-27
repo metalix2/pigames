@@ -146,7 +146,7 @@ func DrawIntro(img *image.Paletted, src image.Image, a_event int, titleShown boo
     return titleShown, introShown, introFrames, showLevel
 }
 
-func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]int, next_coords map[string]int, dir, i, a_event int)(*image.Paletted, map[string]int) {
+func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]int, next_coords map[string]int, dir, i, a_event int, showEnding bool)(*image.Paletted, map[string]int) {
     // log.Println("ending")
     r1 := src.Bounds()
     r2 := src2.Bounds()
@@ -181,11 +181,11 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
         next_coords["y"] = prev_coords["y"]
     }
     if r1.Max.Y == r2.Max.Y {
-        if a_event > 0 && (r1.Max.X + 1 == r2.Min.X || r2.Max.X == r1.Min.X - 1) {
+        if (a_event > 0 || showEnding) && (r1.Max.X + 1 == r2.Min.X || r2.Max.X == r1.Min.X - 1) {
             // draw hearts
+            showEnding = true
             r3 = r3.Add(image.Point{50, 15})
             draw.Draw(img, r3, src3, image.Point{0, 0}, draw.Src)
-
         }
     }
 
@@ -202,7 +202,7 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
         next_coords["y"] = prev_coords["y"]
     }
 
-    return img, next_coords
+    return img, next_coords, showEnding
 }
 
 func DrawCanvas(img *image.Paletted, src image.Image, prev_coords map[string]int, next_coords map[string]int, dir int, screenX int, screenY int, levelWidth int, levelHeight int, level int, showLevel bool, introFrames int) (map[string]int, int, int, int, bool, int) {
