@@ -155,18 +155,6 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
     r1 = r1.Add(image.Point{prev_coords["x"], prev_coords["y"]})
     r2 = r2.Add(image.Point{60, 30})
 
-    // check Avatar can't walk through walls
-    if environment.Inteserction(img, next_coords, r1) {
-        next_coords["x"] = prev_coords["x"]
-        next_coords["y"] = prev_coords["y"]
-    }
-
-    // Draw Avatar and it's Orientation
-    if dir > 0 {
-        draw.Draw(img, r1, imageflip.Flip(src), image.Point{1, 1}, draw.Src)
-    } else {
-        draw.Draw(img, r1, src, image.Point{0, 0}, draw.Src)
-    }
     var mateto image.Image;
     if counter >= 0 && counter < 15 {
         mateto = imageflip.Flip(src2)
@@ -179,6 +167,20 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
         counter -= 1
     }
     draw.Draw(img, r2, mateto, image.Point{0, 0}, draw.Src)
+
+    // check Avatar can't walk through walls
+    if environment.Inteserction(img, next_coords, r1) {
+        next_coords["x"] = prev_coords["x"]
+        next_coords["y"] = prev_coords["y"]
+    }
+
+    // Draw Avatar and it's Orientation
+    if dir > 0 {
+        draw.Draw(img, r1, imageflip.Flip(src), image.Point{1, 1}, draw.Src)
+    } else {
+        draw.Draw(img, r1, src, image.Point{0, 0}, draw.Src)
+    }
+
     return img, next_coords
 }
 
