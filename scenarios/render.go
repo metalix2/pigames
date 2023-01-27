@@ -180,7 +180,7 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
     if r1.Max.Y == r2.Max.Y {
         if r1.Max.X + 2 == r2.Min.X {
             log.Println("on your left")
-        } else if r2.Max.X == r1.Min.x - 2 {
+        } else if r2.Max.X == r1.Min.X - 2 {
             log.Println("on your right")
         }
     }
