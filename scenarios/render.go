@@ -155,6 +155,12 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
     r1 = r1.Add(image.Point{prev_coords["x"], prev_coords["y"]})
     r2 = r2.Add(image.Point{60, 30})
 
+    // check Avatar can't walk through walls
+    if environment.Inteserction(img, next_coords, r) {
+        next_coords["x"] = prev_coords["x"]
+        next_coords["y"] = prev_coords["y"]
+    }
+
     // Draw Avatar and it's Orientation
     if dir > 0 {
         draw.Draw(img, r1, imageflip.Flip(src), image.Point{1, 1}, draw.Src)
