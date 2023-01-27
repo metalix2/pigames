@@ -176,7 +176,7 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
 
     // Draw Avatar and it's Orientation
     if dir > 0 {
-        draw.Draw(img, r1, imageflip.Flip(src), image.Point{1, 1}, draw.Src)
+        draw.Draw(img, r1, imageflip.Flip(src), image.Point{0, 0}, draw.Src)
     } else {
         draw.Draw(img, r1, src, image.Point{0, 0}, draw.Src)
     }
