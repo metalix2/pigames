@@ -140,6 +140,9 @@ func main() {
     index := 0
     // Display the frames in a loop:
     for i := 1; ;  {
+        if p_a.Read() == gpio.High {
+            a_counter = 0            
+        }
         // fps currently 300ms per avatar frame so ~3FPS for avatar animation; screen refreshes every 100ms so 10FPS for each cycle. 
         c := time.After(time.Duration(10*fps) * time.Millisecond)
         if titleShown && introShown && difficulty[level].Level == 0 {
@@ -183,7 +186,6 @@ func main() {
                     showLevel = false
                 }
             }
-
             if p_a.Read() == gpio.High {
                 a_counter = 0            
             }
