@@ -162,9 +162,7 @@ func main() {
             } else if p_d.Read() == gpio.Low {
                 next_coords["y"] += 2
             }
-            
-          
-            if ts.Add(time.Duration(20 * heartGif.Delay[i]) * time.Millisecond).Sub(time.Now()) < time.Duration(10 * 1) * time.Millisecond {
+            if ts.Add(time.Duration(20 * heartGif.Delay[0]) * time.Millisecond).Sub(time.Now()) < time.Duration(10 * 1) * time.Millisecond {
                 if i > len(heartGif.Image) - 2 {
                     i = -1
                 }
