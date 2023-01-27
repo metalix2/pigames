@@ -158,9 +158,12 @@ func main() {
             } else if p_d.Read() == gpio.Low {
                 next_coords["y"] += 2
             }
+            if p_a.Read() == gpio.High {
+                a_counter = 1            
+            }
             var img *image.Paletted
             var coords map[string]int
-            img, coords = scenarios.DrawEnding(difficulty[level].Width, difficulty[level].Height, avatarGif.Image[index], matetoGif.Image[index],  heartGif.Image[index], prev_coords, next_coords, dir, i)
+            img, coords = scenarios.DrawEnding(difficulty[level].Width, difficulty[level].Height, avatarGif.Image[index], matetoGif.Image[index],  heartGif.Image[index], prev_coords, next_coords, dir, i, a_counter)
             prev_coords["x"] = coords["x"]
             prev_coords["y"] = coords["y"]
             next_coords["x"] = coords["x"]
