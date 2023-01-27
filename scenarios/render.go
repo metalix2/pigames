@@ -146,23 +146,24 @@ func DrawIntro(img *image.Paletted, src image.Image, a_event int, titleShown boo
     return titleShown, introShown, introFrames, showLevel
 }
 
-func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]int, next_coords map[string]int, dir int)(*image.Paletted, map[string]int) {
+func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]int, next_coords map[string]int, dir, i int)(*image.Paletted, map[string]int) {
     // log.Println("ending")
     r1 := src.Bounds()
-    log.Println(r1)
     r2 := src.Bounds()
     img := image.NewPaletted(image.Rect(0, 0, w, h), palette.Plan9)
 
     r1 = r1.Add(image.Point{prev_coords["x"], prev_coords["y"]})
     r2 = r2.Add(image.Point{60, 30})
 
-
     // Draw Avatar and it's Orientation
     if dir > 0 {
         draw.Draw(img, r1, imageflip.Flip(src), image.Point{1, 1}, draw.Src)
-        draw.Draw(img, r2, imageflip.Flip(src2), image.Point{1, 1}, draw.Src) 
     } else {
         draw.Draw(img, r1, src, image.Point{0, 0}, draw.Src)
+    }
+    if i % 4 == 0 {
+        draw.Draw(img, r2, imageflip.Flip(src2), image.Point{1, 1}, draw.Src)
+    } else {
         draw.Draw(img, r2, src2, image.Point{0, 0}, draw.Src)
     }
 

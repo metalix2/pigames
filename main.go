@@ -160,7 +160,7 @@ func main() {
             }
             var img *image.Paletted
             var coords map[string]int
-            img, coords = scenarios.DrawEnding(difficulty[level].Width, difficulty[level].Height, avatarGif.Image[index], matetoGif.Image[index],  heartGif.Image[index], prev_coords, next_coords, dir)
+            img, coords = scenarios.DrawEnding(difficulty[level].Width, difficulty[level].Height, avatarGif.Image[index], matetoGif.Image[index],  heartGif.Image[index], prev_coords, next_coords, dir, i)
             prev_coords["x"] = coords["x"]
             prev_coords["y"] = coords["y"]
             next_coords["x"] = coords["x"]
