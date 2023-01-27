@@ -259,6 +259,7 @@ func main() {
             next_coords["x"] = coords["x"]
             next_coords["y"] = coords["y"]
             if showLevel {
+                i = 0
                 continue
             }
             dev.Draw(img.Bounds(), img, image.Point{screenX, screenY})
@@ -290,6 +291,9 @@ func main() {
             introShown = iShown
             introFrames = iFrames
             showLevel = sLevel
+            if introShown {
+                i = 0
+            }
             dev.Draw(img.Bounds(), img, image.Point{0, 0})
             <-c
         }
