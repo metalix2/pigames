@@ -160,19 +160,26 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
 
     var mateto image.Image;
     var imagePoint image.Point;
-    if counter >= 0 && counter < 15 {
-        mateto = imageflip.Flip(src2)
-        imagePoint = image.Point{1, 1}
-        counter -= 1
-    } else if counter < 0 {
-        counter += 30
-        mateto = imageflip.Flip(src2)
-        imagePoint = image.Point{1, 1}
+    if !showEnding {
+
+        if counter >= 0 && counter < 15 {
+            mateto = imageflip.Flip(src2)
+            imagePoint = image.Point{1, 1}
+            counter -= 1
+        } else if counter < 0 {
+            counter += 30
+            mateto = imageflip.Flip(src2)
+            imagePoint = image.Point{1, 1}
+        } else {
+            mateto = src2
+            imagePoint = image.Point{0, 0}
+            counter -= 1
+        }
     } else {
         mateto = src2
         imagePoint = image.Point{0, 0}
-        counter -= 1
     }
+
     draw.Draw(img, r2, mateto, imagePoint, draw.Src)
 
     // check Avatar can't walk through walls
