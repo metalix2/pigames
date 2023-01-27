@@ -146,7 +146,7 @@ func DrawIntro(img *image.Paletted, src image.Image, a_event int, titleShown boo
     return titleShown, introShown, introFrames, showLevel
 }
 
-func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]int, next_coords map[string]int, dir, i, a_event int, showEnding bool)(*image.Paletted, map[string]int) {
+func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]int, next_coords map[string]int, dir, i, a_event int, showEnding bool)(*image.Paletted, map[string]int, bool) {
     // log.Println("ending")
     r1 := src.Bounds()
     r2 := src2.Bounds()
