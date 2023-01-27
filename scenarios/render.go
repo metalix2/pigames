@@ -156,7 +156,7 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
     r2 = r2.Add(image.Point{60, 30})
 
     // check Avatar can't walk through walls
-    if environment.Inteserction(img, next_coords, r) {
+    if environment.Inteserction(img, next_coords, r1) {
         next_coords["x"] = prev_coords["x"]
         next_coords["y"] = prev_coords["y"]
     }
