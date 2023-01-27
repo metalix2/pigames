@@ -176,6 +176,8 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
     if environment.Inteserction(img, next_coords, r1) {
         next_coords["x"] = prev_coords["x"]
         next_coords["y"] = prev_coords["y"]
+        log.Println(r1)
+        log.Println(r2)
     }
 
     // Draw Avatar and it's Orientation
