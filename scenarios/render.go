@@ -149,11 +149,11 @@ func DrawIntro(img *image.Paletted, src image.Image, a_event int, titleShown boo
 func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]int, next_coords map[string]int, dir, i int)(*image.Paletted, map[string]int) {
     // log.Println("ending")
     r1 := src.Bounds()
-    r2 := src.Bounds()
+    r2 := src2.Bounds()
     img := image.NewPaletted(image.Rect(0, 0, w, h), palette.Plan9)
 
     r1 = r1.Add(image.Point{prev_coords["x"], prev_coords["y"]})
-    r2 = r2.Add(image.Point{60, 30})
+    r2 = r2.Add(image.Point{60, 29})
 
     var mateto image.Image;
     var imagePoint image.Point;
@@ -176,8 +176,11 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
     if environment.Inteserction(img, next_coords, r1) {
         next_coords["x"] = prev_coords["x"]
         next_coords["y"] = prev_coords["y"]
-        log.Println(r1)
-        log.Println(r2)
+        log.Println(r1.Min.Y)
+        log.Println(r2.Min.Y)
+    }
+    if r1.Max.Y == r2.Max.Y {
+        log.Println("Check outer bounds at this height?")
     }
 
     // Draw Avatar and it's Orientation
