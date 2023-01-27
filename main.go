@@ -163,10 +163,11 @@ func main() {
                 next_coords["y"] += 2
             }
             
-            if i > len(heartGif.Image) - 2 {
-                i = 1
-            }
+          
             if ts.Add(time.Duration(20 * heartGif.Delay[i]) * time.Millisecond).Sub(time.Now()) < time.Duration(10 * 1) * time.Millisecond {
+                if i > len(heartGif.Image) - 2 {
+                    i = -1
+                }
                 i++
                 ts = time.Now();
             }
