@@ -159,7 +159,7 @@ func main() {
                 next_coords["y"] += 2
             }
             if p_a.Read() == gpio.Low {
-                a_counter = 1            
+                a_counter += 1            
             }
             var img *image.Paletted
             var coords map[string]int

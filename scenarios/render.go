@@ -156,6 +156,7 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
 
     r1 = r1.Add(image.Point{prev_coords["x"], prev_coords["y"]})
     r2 = r2.Add(image.Point{60, 29})
+    log.Println(a_event)
 
     var mateto image.Image;
     var imagePoint image.Point;
@@ -180,7 +181,7 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
         next_coords["y"] = prev_coords["y"]
     }
     if r1.Max.Y == r2.Max.Y {
-        if a_event == 1 && (r1.Max.X + 1 == r2.Min.X || r2.Max.X == r1.Min.X - 1) {
+        if a_event > 0 && (r1.Max.X + 1 == r2.Min.X || r2.Max.X == r1.Min.X - 1) {
             // draw hearts
             r3 = r3.Add(image.Point{50, 15})
             draw.Draw(img, r3, src3, image.Point{0, 0}, draw.Src)
@@ -230,7 +231,7 @@ func DrawCanvas(img *image.Paletted, src image.Image, prev_coords map[string]int
     prev_coords["x"] + r.Size().X  >= 128 + screenX + r.Size().X  || 
     prev_coords["y"] > r.Size().Y && screenY + 0  > prev_coords["y"] + r.Size().Y  ||
     prev_coords["y"] + r.Size().Y  >= 64 + screenY + r.Size().Y {
-        log.Println(prev_coords["x"] + r.Size().X  >= 128 + screenX + r.Size().X)
+
         if environment.InEnvironment(img, prev_coords, r) {
             var vector [2]int
             vector[0] = (next_coords["x"] - prev_coords["x"])
