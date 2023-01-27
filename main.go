@@ -292,7 +292,7 @@ func main() {
             introFrames = iFrames
             showLevel = sLevel
             if introShown {
-                i = 0
+                i = 0 // reset for ending
             }
             dev.Draw(img.Bounds(), img, image.Point{0, 0})
             <-c
