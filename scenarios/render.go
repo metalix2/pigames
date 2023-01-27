@@ -9,7 +9,6 @@ import (
     "golang.org/x/image/font/basicfont"
     "golang.org/x/image/math/fixed"
     "image/color/palette"
-    "log"
     "math"
 	"math/rand"
 
