@@ -158,7 +158,7 @@ func main() {
             } else if p_d.Read() == gpio.Low {
                 next_coords["y"] += 2
             }
-            if p_a.Read() == gpio.High {
+            if p_a.Read() == gpio.Low {
                 a_counter = 1            
             }
             var img *image.Paletted
@@ -190,6 +190,7 @@ func main() {
 
             <-c 
         } else if titleShown && introShown && difficulty[level].Level != 0 {
+            a_counter = 0
             index = i % len(avatarGif.Image)
             if ts.Add(time.Duration(10 * avatarGif.Delay[index]) * time.Millisecond).Sub(time.Now()) < time.Duration(10 * 1) * time.Millisecond {
                 i++
