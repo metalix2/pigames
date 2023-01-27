@@ -138,7 +138,6 @@ func main() {
     ts := time.Now();
     p_counter := 0 // reset's when passes 5
     a_counter := 0
-    ending 
     index := 0
     // Display the frames in a loop:
     for i := 1; ;  {
@@ -173,7 +172,7 @@ func main() {
             }
             var img *image.Paletted
             var coords map[string]int
-            var se bool
+            var sE bool
             img, coords, sE = scenarios.DrawEnding(difficulty[level].Width, difficulty[level].Height, avatarGif.Image[index], matetoGif.Image[index],  heartGif.Image[i], prev_coords, next_coords, dir, i, a_counter, showEnding)
             prev_coords["x"] = coords["x"]
             prev_coords["y"] = coords["y"]
