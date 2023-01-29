@@ -2,7 +2,7 @@ package scenarios
 
 import (
     "fmt"
-    "log"
+    // "log"
     "image"
     "image/color"
     "image/draw"
