@@ -82,27 +82,9 @@ func textAnimation(text []string, img *image.Paletted, x, introFrames int) {
 
 func DrawLevelText(img *image.Paletted, level, introFrames int) () {
     
-    dialog := [][]string{{fmt.Sprintf("      Level %d", level)}}
+    dialog := [][]string{{}
 
-    for di:=0; di < len(dialog); di++ {  
-        for str:=0; str < len(dialog[di]); str++ {
-            y := fixed.I(10+(di*35)+(str*11))
-            if len(dialog[di]) == 1 {
-                y = fixed.I(32)
-            }
-            d := &font.Drawer{
-                Dst:  img,
-                Src:  image.NewUniform(color.White),
-                Face: basicfont.Face7x13,
-                Dot:  fixed.Point26_6{fixed.I(1), y},
-            }
-            if introFrames < len(dialog[di][str]) {
-                d.DrawString(dialog[di][str][:introFrames])
-            } else  {
-                d.DrawString(dialog[di][str])
-            } 
-        }
-    }
+    textAnimation([]string{fmt.Sprintf("Level %d", level)}, img, 40, introFrames)
 }
 
 func DrawIntro(img *image.Paletted, src image.Image, a_event int, titleShown bool, introShown bool, introFrames int, showLevel bool) (bool, bool, int, bool) {
@@ -230,8 +212,8 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
         next_coords["x"] = prev_coords["x"]
         next_coords["y"] = prev_coords["y"]
         textAnimation([]string{"Sabela", "found", "her", "Mateto"}, img, 1, introFrames)
-        if introFrames > 30 {
-            textAnimation([]string{"The", "end"}, img, 100, introFrames-29)
+        if introFrames > 50 {
+            textAnimation([]string{"The", "end"}, img, 100, introFrames-49)
         }
     }
 
