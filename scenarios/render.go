@@ -106,7 +106,7 @@ func DrawIntro(img *image.Paletted, src image.Image, a_event int, titleShown boo
 
         for di:=0; di < len(dialog); di++ {
             
-            textAnimation(dialog[di], img, 1, di introFrames)
+            textAnimation(dialog[di], img, 1, di, introFrames)
 
         }
 
