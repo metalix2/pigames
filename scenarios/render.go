@@ -106,23 +106,8 @@ func DrawIntro(img *image.Paletted, src image.Image, a_event int, titleShown boo
 
         for di:=0; di < len(dialog); di++ {
             
-            for  str:=0; str < len(dialog[di]); str++ {
-                y := fixed.I(10+(di*35)+(str*11))
-                if len(dialog[di]) == 1 {
-                    y = fixed.I(32)
-                }
-                d := &font.Drawer{
-                    Dst:  img,
-                    Src:  image.NewUniform(color.White),
-                    Face: basicfont.Face7x13,
-                    Dot:  fixed.Point26_6{fixed.I(1), y},
-                }
-                if introFrames < len(dialog[di][str]) {
-                    d.DrawString(dialog[di][str][:introFrames])
-                } else  {
-                    d.DrawString(dialog[di][str])
-                }
-            }
+            textAnimation(dialog[di], img, 1, introFrames)
+
         }
 
         if introFrames > 25 {
