@@ -53,10 +53,10 @@ func createMaze(w, h int) *maze.Maze {
 
 func getStringLen(stings []string) int {
     strLen := 0
-    for di:=0; di < len(dialog); di++ {
-        strLen += len(dialog[di])
+    for i:=0; i < len(stings); i++ {
+        strLen += len(stings[i])
     }
-    return strLen 
+    return strLen
 }
 
 func DrawLevelText(img *image.Paletted, level, introFrames int) () {
@@ -221,7 +221,7 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
             }
             log.Println(introFrames)
             log.Println(dialog[0][:str])
-            log.Println(len(dialog[0][:str]))
+            log.Println(getStringLen(dialog[0][:str]))
              if  introFrames > getStringLen(dialog[0][:str])  {
                 d.DrawString(dialog[0][str])
              } else {
