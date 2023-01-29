@@ -82,7 +82,7 @@ func textAnimation(text []string, img *image.Paletted, x, y, introFrames int) {
 
 func DrawLevelText(img *image.Paletted, level, introFrames int) () {
     
-    textAnimation([]string{fmt.Sprintf("Level %d", level)}, img, 40, introFrames)
+    textAnimation([]string{fmt.Sprintf("Level %d", level)}, img, 40, 0, introFrames)
 }
 
 func DrawIntro(img *image.Paletted, src image.Image, a_event int, titleShown bool, introShown bool, introFrames int, showLevel bool) (bool, bool, int, bool) {
@@ -194,9 +194,9 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
          
         next_coords["x"] = prev_coords["x"]
         next_coords["y"] = prev_coords["y"]
-        textAnimation([]string{"Sabela", "found", "her", "Mateto"}, img, 1, introFrames)
+        textAnimation([]string{"Sabela", "found", "her", "Mateto"}, img, 1, 0, introFrames)
         if introFrames > 40 {
-            textAnimation([]string{"The", "end"}, img, 100, introFrames-39)
+            textAnimation([]string{"The", "end"}, img, 100, 0, introFrames-39)
         }
     }
 
