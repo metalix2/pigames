@@ -222,12 +222,12 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
             log.Println(introFrames)
             log.Println(dialog[0][:str])
             log.Println(getStringLen(dialog[0][:1+str]))
-             if  introFrames > getStringLen(dialog[0][:1+str])  {
+             if introFrames > getStringLen(dialog[0][:1+str])  { // if intro > str len print that str
                 d.DrawString(dialog[0][str])
-             } else if introFrames - getStringLen(dialog[0][str]) > 0 {
+             } else if introFrames - len(dialog[0][str]) > 0 {
 
              } else {
-                d.DrawString(dialog[0][str][:introFrames])
+                // d.DrawString(dialog[0][str][:introFrames])
              }
            
         }
