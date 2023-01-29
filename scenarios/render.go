@@ -82,8 +82,6 @@ func textAnimation(text []string, img *image.Paletted, x, introFrames int) {
 
 func DrawLevelText(img *image.Paletted, level, introFrames int) () {
     
-    dialog := [][]string{{}
-
     textAnimation([]string{fmt.Sprintf("Level %d", level)}, img, 40, introFrames)
 }
 
