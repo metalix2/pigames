@@ -212,11 +212,9 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
                     Face: basicfont.Face7x13,
                     Dot:  fixed.Point26_6{fixed.I(1), y},
                 }
-                if introFrames < len(dialog[di][str]) {
-                    d.DrawString(dialog[di][str][:introFrames])
-                } else  {
-                    d.DrawString(dialog[di][str])
-                }
+                
+                d.DrawString(dialog[di][str])
+                
             }
         }
     }
