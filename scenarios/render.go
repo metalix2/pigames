@@ -2,6 +2,7 @@ package scenarios
 
 import (
     "fmt"
+    "log"
     "image"
     "image/color"
     "image/draw"
@@ -218,7 +219,9 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
                 Face: basicfont.Face7x13,
                 Dot:  fixed.Point26_6{fixed.I(1), y},
             }
-             if  getStringLen(dialog[0][:str]) > introFrames {
+            log.Println(introFrames)
+            log.Println(getStringLen(dialog[0][:str]))
+             if  introFrames > getStringLen(dialog[0][:str])  {
                 d.DrawString(dialog[0][str])
              } else {
                 d.DrawString(dialog[0][str][:introFrames])
