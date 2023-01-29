@@ -145,7 +145,7 @@ func DrawIntro(img *image.Paletted, src image.Image, a_event int, titleShown boo
     return titleShown, introShown, introFrames, showLevel
 }
 
-func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]int, next_coords map[string]int, dir, i, a_event int, showEnding bool)(*image.Paletted, map[string]int, bool) {
+func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]int, next_coords map[string]int, dir, i, a_event int, showEnding bool, introFrames int)(*image.Paletted, map[string]int, bool, int) {
     // log.Println("ending")
     r1 := src.Bounds()
     r2 := src2.Bounds()
@@ -196,6 +196,7 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
 
     // disble moving as we've found mateto
     if showEnding {
+         
         next_coords["x"] = prev_coords["x"]
         next_coords["y"] = prev_coords["y"]
 
@@ -213,8 +214,11 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
                     Dot:  fixed.Point26_6{fixed.I(1), y},
                 }
                 
-                d.DrawString(dialog[di][str])
-                
+                if introFrames < len(dialog[di][str]) {
+                    d.DrawString(dialog[di][str][:introFrames])
+                } else  {
+                    d.DrawString(dialog[di][str])
+                } 
             }
         }
     }
@@ -226,7 +230,7 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
         draw.Draw(img, r1, src, image.Point{0, 0}, draw.Src)
     }
 
-    return img, next_coords, showEnding
+    return img, next_coords, showEnding, introFrames
 }
 
 func DrawCanvas(img *image.Paletted, src image.Image, prev_coords map[string]int, next_coords map[string]int, dir int, screenX int, screenY int, levelWidth int, levelHeight int, level int, showLevel bool, introFrames int) (map[string]int, int, int, int, bool, int) {

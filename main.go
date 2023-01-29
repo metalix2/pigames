@@ -147,6 +147,9 @@ func main() {
         // fps currently 300ms per avatar frame so ~3FPS for avatar animation; screen refreshes every 100ms so 10FPS for each cycle. 
         c := time.After(time.Duration(10*fps) * time.Millisecond)
         if titleShown && introShown && difficulty[level].Level == 0 {
+            if showEnding {
+                introFrames += 1
+            }
             // end game
             index = i % len(avatarGif.Image)
             // movement
@@ -175,12 +178,14 @@ func main() {
             var img *image.Paletted
             var coords map[string]int
             var sE bool
-            img, coords, sE = scenarios.DrawEnding(difficulty[level].Width, difficulty[level].Height, avatarGif.Image[index], matetoGif.Image[index],  heartGif.Image[i], prev_coords, next_coords, dir, i, a_counter, showEnding)
+            var iFrames int
+            img, coords, sE, iFrames = scenarios.DrawEnding(difficulty[level].Width, difficulty[level].Height, avatarGif.Image[index], matetoGif.Image[index],  heartGif.Image[i], prev_coords, next_coords, dir, i, a_counter, showEnding, introFrames)
             prev_coords["x"] = coords["x"]
             prev_coords["y"] = coords["y"]
             next_coords["x"] = coords["x"]
             next_coords["y"] = coords["y"]
             showEnding = sE
+            introFrames = iFrames
             dev.Draw(img.Bounds(), img, image.Point{0, 0})
             <-c
         } else if showLevel {
@@ -260,6 +265,7 @@ func main() {
             next_coords["y"] = coords["y"]
             if showLevel {
                 i = 0
+                introFrames = 0
                 continue
             }
             dev.Draw(img.Bounds(), img, image.Point{screenX, screenY})
@@ -293,6 +299,7 @@ func main() {
             showLevel = sLevel
             if introShown {
                 i = 0 // reset for ending
+                introFrames = 0
             }
             dev.Draw(img.Bounds(), img, image.Point{0, 0})
             <-c
