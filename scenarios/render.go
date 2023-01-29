@@ -210,8 +210,8 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
         next_coords["x"] = prev_coords["x"]
         next_coords["y"] = prev_coords["y"]
         textAnimation([]string{"Sabela", "found", "her", "Mateto"}, img, 1, introFrames)
-        if introFrames > 50 {
-            textAnimation([]string{"The", "end"}, img, 100, introFrames-49)
+        if introFrames > 40 {
+            textAnimation([]string{"The", "end"}, img, 100, introFrames-39)
         }
     }
 

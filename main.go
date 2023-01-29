@@ -132,7 +132,7 @@ func main() {
     // Global params
     var dir = 1
     var fps = 10
-    level = 5
+    level = 0
     screenX := 0
     screenY := 0
     ts := time.Now();
