@@ -208,7 +208,7 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
          
         next_coords["x"] = prev_coords["x"]
         next_coords["y"] = prev_coords["y"]
-        for str:=1; str < len(dialog[0])-1; str++ {
+        for str:=0; str < len(dialog[0]); str++ {
             y := fixed.I(10+(0*35)+(str*11))
             if len(dialog[0]) == 1 {
                 y = fixed.I(32)
@@ -221,8 +221,8 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
             }
             log.Println(introFrames)
             log.Println(dialog[0][:str])
-            log.Println(getStringLen(dialog[0][:str]))
-             if  introFrames > getStringLen(dialog[0][:str])  {
+            log.Println(getStringLen(dialog[0][:1+str]))
+             if  introFrames > getStringLen(dialog[0][:1+str])  {
                 d.DrawString(dialog[0][str])
              } else {
                 d.DrawString(dialog[0][str][:introFrames])
