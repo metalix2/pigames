@@ -59,6 +59,27 @@ func getStringLen(stings []string) int {
     return strLen
 }
 
+func textAnimation(text []string, img *image.Paletted, x, introFrames int) {
+    for str:=0; str < len(text); str++ {
+        y := fixed.I(10+(0*35)+(str*11))
+        if len(text) == 1 {
+            y = fixed.I(32)
+        }
+        d := &font.Drawer{
+            Dst:  img,
+            Src:  image.NewUniform(color.White),
+            Face: basicfont.Face7x13,
+            Dot:  fixed.Point26_6{fixed.I(x), y},
+        }
+
+         if introFrames > getStringLen(text[:str+1])  {
+            d.DrawString(text[str])
+         } else if introFrames - (getStringLen(text[:str+1]) - len(text[str])) > 0 {
+            d.DrawString(text[str][:introFrames - (getStringLen(text[:str+1]) - len(text[str]))])
+         }
+    }
+}
+
 func DrawLevelText(img *image.Paletted, level, introFrames int) () {
     
     dialog := [][]string{{fmt.Sprintf("      Level %d", level)}}
@@ -208,29 +229,10 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
          
         next_coords["x"] = prev_coords["x"]
         next_coords["y"] = prev_coords["y"]
-        for str:=0; str < len(dialog[0]); str++ {
-            y := fixed.I(10+(0*35)+(str*11))
-            if len(dialog[0]) == 1 {
-                y = fixed.I(32)
-            }
-            d := &font.Drawer{
-                Dst:  img,
-                Src:  image.NewUniform(color.White),
-                Face: basicfont.Face7x13,
-                Dot:  fixed.Point26_6{fixed.I(1), y},
-            }
-            // log.Println(introFrames)
-            // log.Println(dialog[0][:str+1])
-            // log.Println(getStringLen(dialog[0][:str+1]))
-            // log.Println(introFrames - (getStringLen(dialog[0][:str+1]) - len(dialog[0][str])))
-             if introFrames > getStringLen(dialog[0][:str+1])  { // if intro > str len print that str
-                d.DrawString(dialog[0][str])
-             } else if introFrames - (getStringLen(dialog[0][:str+1]) - len(dialog[0][str])) > 0 {
-                d.DrawString(dialog[0][str][:introFrames - (getStringLen(dialog[0][:str+1]) - len(dialog[0][str]))])
-             }
-           
+        textAnimation([]string{"Sabela", "found", "her", "Mateto"}, img, 1, introFrames)
+        if introFrames > 30 {
+            textAnimation([]string{"The", "end"}, img, 100, introFrames-29)
         }
-    
     }
 
     // Draw Avatar and it's Orientation
