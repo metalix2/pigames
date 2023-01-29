@@ -155,7 +155,7 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
 
     r1 = r1.Add(image.Point{prev_coords["x"], prev_coords["y"]})
     r2 = r2.Add(image.Point{60, 29})
-    dialog = [][]string{{"Sabela found", "her Mateto"}}
+    dialog = [][]string{{"Sabela", "found", "her", "Mateto"}}
     var mateto image.Image;
     var imagePoint image.Point;
     if !showEnding {
