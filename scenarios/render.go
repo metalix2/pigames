@@ -2,7 +2,6 @@ package scenarios
 
 import (
     "fmt"
-    "log"
     "image"
     "image/color"
     "image/draw"
@@ -208,11 +207,7 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
          
         next_coords["x"] = prev_coords["x"]
         next_coords["y"] = prev_coords["y"]
-        strLen := getStringLen(dialog[0])
-        log.Println(strLen)
-
-        for  str:=0; str < len(dialog[0]); str++ {
-
+        for str:=0; str < len(dialog[0]); str++ {
             y := fixed.I(10+(0*35)+(str*11))
             if len(dialog[0]) == 1 {
                 y = fixed.I(32)
@@ -223,14 +218,12 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
                 Face: basicfont.Face7x13,
                 Dot:  fixed.Point26_6{fixed.I(1), y},
             }
-            subStrLen := getStringLen(dialog[0][:str])
-            log.Println(subStrLen)
-            
-            if introFrames < len(dialog[0][str]) {
-                d.DrawString(dialog[0][str][:introFrames])
-            } else  {
+             if  getStringLen(dialog[0][:str]) > introFrames {
                 d.DrawString(dialog[0][str])
-            } 
+             } else {
+                d.DrawString(dialog[0][str][:introFrames])
+             }
+           
         }
     
     }
