@@ -202,7 +202,7 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
     }
 
     // disble moving as we've found mateto
-    if showEnding > 0 {
+    if showEnding {
         next_coords["x"] = prev_coords["x"]
         next_coords["y"] = prev_coords["y"]
     }
