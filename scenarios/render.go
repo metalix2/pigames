@@ -155,7 +155,7 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
 
     r1 = r1.Add(image.Point{prev_coords["x"], prev_coords["y"]})
     r2 = r2.Add(image.Point{60, 29})
-
+    dialog = [][]string{{"Sabela found her Mateto"}}
     var mateto image.Image;
     var imagePoint image.Point;
     if !showEnding {
@@ -194,17 +194,29 @@ func DrawEnding(w, h int, src, src2, src3 image.Image, prev_coords map[string]in
         }
     }
 
+    // disble moving as we've found mateto
+    if showEnding {
+        next_coords["x"] = prev_coords["x"]
+        next_coords["y"] = prev_coords["y"]
+
+        d := &font.Drawer{
+            Dst:  img,
+            Src:  image.NewUniform(color.White),
+            Face: basicfont.Face7x13,
+            Dot:  fixed.Point26_6{fixed.I(1), fixed.I(50)},
+        }
+        // if introFrames < len(dialog[di][str]) {
+        //     d.DrawString(dialog[di][str][:introFrames])
+        // } else  {
+        d.DrawString(dialog[di][str])
+        // }
+    }
+
     // Draw Avatar and it's Orientation
     if dir > 0 {
         draw.Draw(img, r1, imageflip.Flip(src), image.Point{1, 1}, draw.Src)
     } else {
         draw.Draw(img, r1, src, image.Point{0, 0}, draw.Src)
-    }
-
-    // disble moving as we've found mateto
-    if showEnding {
-        next_coords["x"] = prev_coords["x"]
-        next_coords["y"] = prev_coords["y"]
     }
 
     return img, next_coords, showEnding
