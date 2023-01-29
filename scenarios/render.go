@@ -59,9 +59,9 @@ func getStringLen(stings []string) int {
     return strLen
 }
 
-func textAnimation(text []string, img *image.Paletted, x, introFrames int) {
+func textAnimation(text []string, img *image.Paletted, x, y, introFrames int) {
     for str:=0; str < len(text); str++ {
-        y := fixed.I(10+(0*35)+(str*11))
+        y := fixed.I(10+(y*35)+(str*11))
         if len(text) == 1 {
             y = fixed.I(32)
         }
@@ -106,7 +106,7 @@ func DrawIntro(img *image.Paletted, src image.Image, a_event int, titleShown boo
 
         for di:=0; di < len(dialog); di++ {
             
-            textAnimation(dialog[di], img, 1, introFrames)
+            textAnimation(dialog[di], img, 1, di introFrames)
 
         }
 
